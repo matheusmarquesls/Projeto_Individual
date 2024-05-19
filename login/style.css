@@ -5,6 +5,8 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'poppins', sans-serif;
+    
+    
 }
 
 body{
@@ -13,6 +15,8 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
+    background-image: url("imagem.jpg");
+    background-size: cover;
 }
 
 

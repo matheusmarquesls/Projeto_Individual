@@ -5,6 +5,7 @@
     text-decoration: none;
     font-family: "Poppins", sans-serif;
     color: white;
+    
   }
 
 .header{
@@ -44,6 +45,21 @@
   .nav-button {
     display: flex;
     align-items: center;
+    
+  }
+  .nav-button  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    border: 0.2px solid #ffffff;
+    border-radius: 5px;
+    width: 180px;
+    height: 40px;
+    font-size: 16px;
+    font-weight: 400;
+    text-transform: capitalize;
+    background-color: rgb(31, 72, 31);
   }
   .papelDeParede{
    background-image: url(image/Papel-de-parede-Exercito-Brasileiro-1536x864.jpg); 
@@ -144,19 +160,21 @@
 .caixa_titulo {
   color: white;
   font-size: 20px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
   
 }
+.texto_experiencia{
+  display: flex;
+  white-space: rap;
+}
+
 
 .title {
   display: flex;
   flex-direction: column;
   gap: 10px;
-}
-
-.caixa_titulo {
-  color: white;
-  font-size: 15px;
-  
 }
 
 .card {
@@ -227,10 +245,13 @@
   align-items: center;
   justify-content: center;
   height: 300px;
+ 
   
 }
 .btn{
-  width: 100px;
+  width: 300px;
+  height: 50px;
+  border-radius: 10px;
   background-color: green;
 }
 
@@ -269,6 +290,18 @@
 .conteudo{
   font-size: 26px;
   
+}
+img{
+  width: 300px;
+  height: 350px;
+  border-radius: 10px;
+}
+p{
+  display: flex;
+}
+.img_pelotao{
+  width: 400px;
+  height: 250px;
 }
 /*
 .cards {
@@ -345,19 +378,7 @@
   
   
   /*
- .nav-button  button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    border: 0.2px solid #ffffff;
-    border-radius: 5px;
-    width: 100px;
-    height: 40px;
-    font-size: 16px;
-    font-weight: 400;
-    text-transform: capitalize;
-  }
+ 
   
   .login {
     cursor: pointer;
