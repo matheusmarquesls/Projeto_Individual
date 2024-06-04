@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/dash.css">
+    <link rel="shortcut icon" href="./assets/image/icons8-soldado-48.png" />
+
+    <title>chartjs</title>
+</head>
+<body onload="dash()">
+    <div class="container_dash">
+        <div class="box_texto_inicio">
+            <p>
+                Olá <span id="nome_usuario"></span>, veja aqui no primeiro grafico os pelotões mais votados e também confira a porcentagem de cada pelotão.
+            </p>
+        </div>
+        <div class="box_dash">
+            <div id="grafico1">
+                <canvas id="myChart"></canvas>
+            </div>
+            <div class="linha"></div>
+            <div id="grafico2">
+                <canvas id="myChart2"></canvas>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        nome_usuario.innerHTML = sessionStorage.NOME_USUARIO.toUpperCase();
+        nome_usuario.style.color = backgroundColor;
+
+        function dash() {
+            fetch("/usuarios/puxar_voto")
+                .then(resposta => resposta.ok ? resposta.json() : Promise.reject("Houve um erro na API!"))
+                .then(resposta => {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+                    
+                    var nomes = [];
+                    var votos = [];
+                    
+                    for (var i = 0; i < resposta.length; i++) {
+                        nomes.push(resposta[i].nome);
+                        votos.push(resposta[i].voto_recebido);
+                    }
+
+                    graficos1(nomes, votos);
+                    graficos2(nomes, votos);
+                })
+                .catch(console.error);
+        }
+
+        function graficos1(nomes, votos) {
+            var data = {
+                labels: nomes,
+                datasets: [{
+                    label: "Quantidade de votos",
+                    data: votos,
+                    backgroundColor: [
+                        "rgb(153, 255,0)",
+                        "rgb(0, 110,0)",
+                        "rgb(90, 136, 100)"
+                    ],
+                    borderColor: "#000",
+                    borderWidth: 1.5,
+                    hoverOffset: 20,
+                }]
+            };
+
+            Chart.defaults.color = "#FFF";
+
+            var config = {
+                type: "bar",
+                data: data,
+                options: {
+                    indexAxis: "y",
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: "Confira os votos dados pelos usuários nos pelotões",
+                            padding: {
+                                top: 20,
+                                bottom: 20,
+                            },
+                        },
+                    },
+                },
+            };
+
+            new Chart(document.getElementById("myChart"), config);
+        }
+
+        function graficos2(nomes, votos) {
+            var totalVotos = 0;
+
+            for (var i = 0; i < votos.length; i++) {
+                totalVotos += votos[i];
+            }
+
+            var porcentagens = [];
+            for (var i = 0; i < votos.length; i++) {
+                porcentagens.push(((votos[i] / totalVotos) * 100).toFixed(2));
+            }
+
+            var data2 = {
+                labels: nomes,
+                datasets: [{
+                    label: "Porcentagem de votos",
+                    data: porcentagens,
+                    backgroundColor: [
+                        "rgba(35, 146, 197, 0.808)",
+                        "rgba(35, 197, 176, 0.808)",
+                        "rgba(127, 197, 35, 0.808)"
+                    ],
+                    borderColor: "rgb(26, 25, 25)",
+                    hoverOffset: 2,
+                    borderWidth: 1.2,
+                    borderJoinStyle: "miter",
+                    borderAlign: "inner",
+                    borderRadius: "outerEnd",
+                }]
+            };
+
+            Chart.defaults.color = "#FFF";
+
+            var config2 = {
+                type: "pie",
+                data: data2,
+                options: {
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: "Distribuição de votos em porcentagem",
+                            padding: {
+                                top: 20,
+                                bottom: 20,
+                            },
+                        },
+                    },
+                },
+            };
+
+            new Chart(document.getElementById("myChart2"), config2);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,214 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: "Poppins", sans-serif;
+  color: white;
+ 
+  /*  */
+  
+  
+}
+.fundo{
+  width: 100%;
+  min-height: 100vh;
+  background-image: url(../assets/image/fundo-abstrato-grunge-verde.jpg);
+}
+
+.votos{
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.box_video{
+
+
+ height: 500px;
+  width: 300px;
+ border-radius: 12px;
+ overflow: hidden;
+ position: relative;
+}
+
+
+#video{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  object-fit: cover; 
+  
+  
+}
+
+.caixa-texto{
+  width: 100%;
+  height: 100%;
+  display: flex;
+   
+}
+.textinho{
+  width: 50%;
+  height: 80%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  
+}
+.descricao{
+  width: 65%;
+  
+  font-size: 18px;
+  display: flex;
+  text-align: justify;
+  
+}
+.botao{
+  width: 100%;
+display: flex;
+flex-direction: row;
+justify-content: space-around;
+align-items: center;
+
+} 
+
+.botao2{
+  width: 100%;
+  height: 30%;
+  display: flex;
+  
+  justify-content: center;
+  align-items: center;
+}
+
+.botao2 button{
+  padding: 12px 10px;
+  border: 0;
+  width: 35%;
+  background: linear-gradient(to right, #14ed00cb 0%,#062a03cb 100%); 
+  border-radius: 3px;
+  margin-top: 10px;
+  color: #fff;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: 1s;
+  border-radius: 8px;
+  border-style: none;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px 0px;
+  margin-top: 2%;
+}
+
+.botao button:hover{
+  background-color: #ffc400a1;
+  transform: scale(1.08)
+}
+
+/* * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: "Poppins", sans-serif;
+    color: white;
+    
+  }
+
+.companhia {
+    display: flex;
+    background-color: black;
+    width: 100%;
+    height: 800px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    
+  }
+  .comtitulo{
+    font-size: 26px;
+    display: flex;
+  }
+  
+  .caixa_campanhia {
+    display: flex;
+    flex-direction: row;
+    gap: 100px;
+  
+    
+  }
+  
+  .ttitle {
+    color: white;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+  }
+  
+
+  
+  .caixa_ttitulo {
+    color: white;
+    font-size: 15px;
+    
+  }
+  
+  .card-container {
+    position: relative;
+    width: 12rem; 
+    height: 16rem; 
+    overflow: hidden;
+    border-radius: 1rem; 
+    background-color: #78c18e;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-content {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    z-index: 1;
+    opacity: 0.9;
+    border-radius: 1rem; /* 
+    inset: 0.125rem; 
+    background-color: #323132;
+  }
+  
+  .card-blur {
+    position: absolute;
+    width: 14rem; 
+    height: 12rem; 
+    background-color: white;
+    filter: blur(50px);
+    left: -50%; 
+    top: -50%; 
+  }
+  .botao{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 300px;
+   
+    
+  }
+  .btn{
+    width: 300px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: green;
+  }
+  .curiosidade{
+    
+    gap: 10px;
+    background-color: blue;
+    
+  } 

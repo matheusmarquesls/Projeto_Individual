@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>votação</title>
+    <link rel="shortcut icon" href="./assets/image/icons8-soldado-48.png" />
+    <link rel="stylesheet" href="./css/votos.css">
+
+</head>
+<body>
+    <div class="fundo">
+        <div class="votos">
+            <div class="box_video">
+                <video autoplay muted loop id="video">
+                    <source src="./assets/video/escolta.mp4" type="video/mp4" />
+                </video>
+            </div>
+            <div class="box_video">
+                <video autoplay muted loop id="video">
+                    <source src="./assets/video/choque.mp4" type="video/mp4" />
+                </video>
+            </div>
+            <div class="box_video">
+                <video autoplay muted loop id="video">
+                    <source src="./assets/video/comunicacao.mp4" type="video/mp4" />
+                </video>
+            </div>
+        </div>
+        <div class="caixa-texto">
+            <div class="textinho">
+                <span class="descricao">O Pelotão de Escolta tem como objetivo principal realizar a escolta e a proteção de comboios ou autoridades. Isso envolve garantir a segurança e a integridade dos veículos ou pessoas escoltadas, prevenindo possíveis ameaças, ataques ou incidentes durante o trajeto.</span>
+            </div>
+            <div class="textinho">
+                <span class="descricao">Pelotão de Choque, também conhecido como tropa de choque, tem como um de seus principais objetivos dispersar manifestações e controlar distúrbios civis. Este tipo de unidade é especialmente treinado e equipado para lidar com situações de grande aglomeração e protestos que possam sair do controle, garantindo a manutenção da ordem pública</span>
+            </div>
+            <div class="textinho">
+                <span class="descricao"> Comunicação tem como objetivo principal garantir a comunicação eficiente e segura entre diferentes unidades e comandos durante operações militares
+                    Transmissão de Mensagens Codificadas Recepção de Mensagens: Estabelecimento de Redes de Comunicação
+                </span>
+            </div>
+        </div>
+        <div class="botao">
+            <div class="botao2">
+                <button value="escolta" id="btn_escolta" onclick="cadastrar_voto(1)">Votar escolta</button>
+            </div>
+            <div class="botao2">
+                <button value="choque" id="btn_choque" onclick="cadastrar_voto(2)">Votar choque</button>
+            </div>
+            <div class="botao2">
+                <button value="comunicacao" id="btn_radio" onclick="cadastrar_voto(3)">Votar comunicacao</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+<script>
+    function cadastrar_voto(voto){
+var voto_dado = voto
+
+fetch("/usuarios/cadastrar_voto", {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+          // crie um atributo que recebe o valor recuperado aqui
+          // Agora vá para o arquivo routes/usuario.js
+          voto_dadoServer: voto_dado,
+          fkUsuarioServer: sessionStorage.ID_USUARIO
+      })
+  }).then(function (resposta) {
+
+      console.log("resposta: ", resposta);
+
+      if (resposta.ok) {
+      
+
+          setTimeout(() => {
+              window.location = "dashboard.html";
+          }, "2000")
+          
+         
+        
+      } else {
+          throw ("Houve um erro ao tentar realizar o cadastro!");
+      }
+  }).catch(function (resposta) {
+      console.log(`#ERRO: ${resposta}`);
+ 
+  });
+
+  return false;
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

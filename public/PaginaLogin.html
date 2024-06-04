@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/80ec270284.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="./assets/image/icons8-soldado-48.png" />
+    <script src="./js/sessao.js"></script>
+    <title>Login</title>
+</head>
+<body>
+
+    
+<!-- parte que faz a transiçao do login para cadastro -->
+<div class="conteiner">
+    
+    <div class="header">
+    <div class="titulo">login</div>
+    <div class="boneco-usuario">
+        <label  id="icon">
+            <i class="fa-regular fa-user icon-modify"></i>
+        </label>
+    </div>
+
+    <div class="botao-transicao">
+        <div class="botaoColor"></div>
+      <button id="botao_login" onclick="irParaLogin()">Login</button> 
+      <button id="botao_cadastro" onclick="irParaCadastro()">cadastrar</button> 
+    </div>
+</div>
+
+<!-- parte dos input do do login -->
+    <div class="div-login">
+
+    <div class="input" id="login">
+        <label class="label-input">
+            <i class="fa-regular fa-envelope icon-modify"></i>
+            <input type="text" placeholder="Email" id="ipt_email" required/>
+            
+
+        </label>
+       <label class="label-input">
+        <i class="fa-solid fa-lock icon-modify"></i>
+        <input type="password" placeholder="Senha" id="ipt_senha" required/>
+
+
+       </label>
+        
+        
+        <button class="btn_submit" type="button" onclick="entrar()">Entrar</button>
+    </div>
+</div>
+    
+
+<!-- parte do input cadastro -->
+
+        <div class="div-cadastro">
+
+
+             <div class="input" id="cadastra">
+            <label class="label-input">
+                <input type="text" placeholder="nome" id="input_nome"  required/>
+                <i class="fa-regular fa-user icon-modify"></i>
+            </label>
+            
+            <label class="label-input">
+                <input type="text" placeholder="Email" id="input_email" required/>
+            <i class="fa-regular fa-envelope icon-modify"></i>
+            </label>
+
+            <label class="label-input">
+            <input type="password" placeholder="Senha" id="input_senha" required />
+            <i class="fa-solid fa-lock icon-modify"></i>
+            </label>
+
+            <label class="label-input">
+                <input type="password" placeholder="Confirmar Senha" id="input_confimarSenha" required />
+                <i class="fa-solid fa-lock icon-modify"></i>
+                </label>
+            
+            
+            <button class="btn_submit" type="submit" onclick="cadastrar()">cadastrar</button>
+             </div>  
+    </div>
+
+
+</div>
+
+</body>
+</html>
+
+<script>
+  
+
+   
+    var login = document.querySelector("#login")
+    var cadastra = document.querySelector("#cadastra")
+    var botaoColor = document.querySelector(".botaoColor")
+
+
+function irParaLogin(){
+    document.querySelector('#botao_login').addEventListener('click', () => {
+        login.style.left = "25px"
+        cadastra.style.left = "450px"
+        botaoColor.style.left = "0px"
+    })
+}
+   
+    function irParaCadastro(){
+        document.querySelector('#botao_cadastro').addEventListener('click',() => {
+        login.style.left = "-450px"
+        cadastra.style.left = "28px"
+         botaoColor.style.left = "110px"
+        })
+    }
+
+    const caracterNum = "1234567890";
+    const caracterEspecial = "!#$%&*?@_";
+    let listaEmailRepetido = []
+
+    function cadastrar() {
+   
+
+    //Recupere o valor da nova input pelo nome do id
+    // Agora vá para o método fetch logo abaixo
+    var nomeVar = input_nome.value;
+    var emailVar = input_email.value;
+    var senhaVar = input_senha.value;
+    var confirmacaoSenhaVar = input_confimarSenha.value;
+    let campoVazio =
+    nomeVar == "" || emailVar == "" || senhaVar == "" || confirmacaoSenhaVar == "";
+    let validacaoNome = nomeVar.length > 2;
+    let validacaoEmail = emailVar.indexOf("@") >= 0 && emailVar.indexOf(".com") >= 0;
+    let validacaoSenhaLetra = senhaVar.length > 5 
+    let validacaoSenhaCaracterEspeciais = caracterEspecial.length > 0 
+    let validacaoSenhaNumero = caracterNum.length > 0
+    let validacaoConfirmarSenha = senhaVar;
+
+    if (campoVazio) {
+      alert("Preencha todos os campos");
+    
+   } if (!validacaoNome) {
+    alert("É necessario ter mais duas letras");
+   } if(!validacaoEmail){
+    alert("É necessario ter '@' e '.com'");
+   } if(!validacaoSenhaLetra){
+    alert("É necessario ter mais 5 caracteres");
+   } if(!validacaoSenhaCaracterEspeciais){
+    alert("É necessario ter caracteres ");
+   } if(!validacaoSenhaNumero){
+    alert("É necessario ter caracteres numericos");
+   } if(!validacaoConfirmarSenha){
+    alert("para confirmar senha é necessario ser igual a senha");}
+    
+    let emailrepetido = false  
+
+
+    for(let posicao = 0; posicao < listaEmailRepetido.length; posicao++){
+      if(email == listaEmailRepetido[posicao]){
+      emailrepetido = true
+      break;
+    }
+  }
+  if(emailrepetido){
+    alert(`email ja cadastrado`)
+  }
+    else{
+      listaEmailRepetido.push(emailVar);
+      
+      
+      fetch("/usuarios/cadastrar", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      nomeServer: nomeVar,
+      emailServer: emailVar,
+      senhaServer: senhaVar,
+    }),
+  })
+  .then(function (resposta) {
+    console.log("resposta: ", resposta);
+
+    if (resposta.ok) {
+      setTimeout(() => {
+        window.location = "PaginaLogin.html";
+      }, 2000);
+
+      limparFormulario();
+      finalizarAguardar();
+    } else {
+      throw "Houve um erro ao tentar realizar o cadastro!";
+    }
+  })
+  .catch(function (resposta) {
+    console.log(`#ERRO: ${resposta}`);
+    finalizarAguardar();
+  });
+
+  return false;
+}
+}
+    
+   
+
+
+  
+        
+
+
+
+
+
+  function entrar() {
+   
+
+   var emailVar = ipt_email.value;
+   var senhaVar = ipt_senha.value;
+   let validacaoEmail = emailVar.indexOf("@") >= 0 && emailVar.indexOf(".com") >= 0;
+    let validacaoSenhaLetra = senhaVar.length > 5 
+    let validacaoSenhaCaracterEspeciais = caracterEspecial.length >= 0 
+    let validacaoSenhaNumero = caracterNum.length >= 0
+    
+   if (emailVar == "" || senhaVar == "") {
+     alert("erro ")
+     if(!validacaoEmail){
+    alert("É necessario ter '@' e '.com'");
+   } if(!validacaoSenhaLetra){
+    alert("É necessario ter mais 5 caracteres");
+   } if(!validacaoSenhaCaracterEspeciais){
+    alert("É necessario ter caracteres ");
+   } if(!validacaoSenhaNumero){
+    alert("É necessario ter caracteres numericos");
+   }
+       
+       
+   }else {
+    console.log("FORM LOGIN: ", emailVar);
+   console.log("FORM SENHA: ", senhaVar);
+
+   fetch("/usuarios/autenticar", {
+       method: "POST",
+       headers: {
+           "Content-Type": "application/json"
+       },
+       body: JSON.stringify({
+           emailServer: emailVar,
+           senhaServer: senhaVar
+       })
+   }).then(function (resposta) {
+       console.log("ESTOU NO THEN DO entrar()!")
+        console.log(resposta)
+       if (resposta.ok) {
+           console.log(resposta);
+
+           resposta.json().then(json => {
+               console.log(json);
+               console.log(JSON.stringify(json));
+               sessionStorage.EMAIL_USUARIO = json[0].email;
+               sessionStorage.NOME_USUARIO = json[0].nome;
+               sessionStorage.ID_USUARIO = json[0].idusuario;
+
+               setTimeout(function () {
+                   window.location.href = "index.html";
+               }, 1000); // apenas para exibir o loading
+
+           });
+
+       } else {
+
+          console.log("Houve um erro ao tentar realizar o login!");
+
+          resposta.text().then(texto => {
+              alert(texto);
+          });
+       }
+   })
+   return false;
+}
+   }
+
+   
+
+ 
+</script>
+
+
+
+
+
+
+
+   
