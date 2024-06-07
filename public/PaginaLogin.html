@@ -76,7 +76,7 @@
             </label>
 
             <label class="label-input">
-                <input type="password" placeholder="Confirmar Senha" id="input_confimarSenha" required />
+                <input type="password" placeholder="Confirmar Senha" id="input_confirmarSenha" required />
                 <i class="fa-solid fa-lock icon-modify"></i>
                 </label>
             
@@ -116,57 +116,95 @@ function irParaLogin(){
         })
     }
 
-    const caracterNum = "1234567890";
-    const caracterEspecial = "!#$%&*?@_";
-    let listaEmailRepetido = []
-
-    function cadastrar() {
+   
+    
    
 
-    //Recupere o valor da nova input pelo nome do id
-    // Agora vá para o método fetch logo abaixo
-    var nomeVar = input_nome.value;
-    var emailVar = input_email.value;
-    var senhaVar = input_senha.value;
-    var confirmacaoSenhaVar = input_confimarSenha.value;
-    let campoVazio =
-    nomeVar == "" || emailVar == "" || senhaVar == "" || confirmacaoSenhaVar == "";
-    let validacaoNome = nomeVar.length > 2;
-    let validacaoEmail = emailVar.indexOf("@") >= 0 && emailVar.indexOf(".com") >= 0;
-    let validacaoSenhaLetra = senhaVar.length > 5 
-    let validacaoSenhaCaracterEspeciais = caracterEspecial.length > 0 
-    let validacaoSenhaNumero = caracterNum.length > 0
-    let validacaoConfirmarSenha = senhaVar;
 
-    if (campoVazio) {
-      alert("Preencha todos os campos");
-    
-   } if (!validacaoNome) {
-    alert("É necessario ter mais duas letras");
-   } if(!validacaoEmail){
-    alert("É necessario ter '@' e '.com'");
-   } if(!validacaoSenhaLetra){
-    alert("É necessario ter mais 5 caracteres");
-   } if(!validacaoSenhaCaracterEspeciais){
-    alert("É necessario ter caracteres ");
-   } if(!validacaoSenhaNumero){
-    alert("É necessario ter caracteres numericos");
-   } if(!validacaoConfirmarSenha){
-    alert("para confirmar senha é necessario ser igual a senha");}
-    
-    let emailrepetido = false  
+   
+   
 
+      let listaEmailRepetido = [];
+let caracteresNumericos = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
+let caracteresEspecial = ["!", "@", "#", "$", "%", "&", "*", "?"];
 
-    for(let posicao = 0; posicao < listaEmailRepetido.length; posicao++){
-      if(email == listaEmailRepetido[posicao]){
-      emailrepetido = true
+function cadastrar() {
+  var nomeVar = input_nome.value;
+  var emailVar = input_email.value;
+  var senhaVar = input_senha.value;
+  var confirmacaoSenhaVar = input_confirmarSenha.value;
+
+  let campoVazio = nomeVar == "" || emailVar == "" || senhaVar == "" || confirmacaoSenhaVar == "";
+  let validacaoNome = nomeVar.length > 2;
+  let validacaoEmail = emailVar.indexOf("@") >= 0 && emailVar.indexOf(".com") >= 0;
+  let validacaoSenhaLetra = senhaVar.length > 5;
+  let validacaoConfirmarSenha = confirmacaoSenhaVar === senhaVar;
+
+  if (campoVazio) {
+    alert("Preencha todos os campos");
+    return;
+  }
+  if (!validacaoNome) {
+    alert("É necessário ter mais de duas letras");
+    return;
+  }
+  if (!validacaoEmail) {
+    alert("É necessário ter '@' e '.com'");
+    return;
+  }
+  if (!validacaoSenhaLetra) {
+    alert("É necessário ter mais de 5 caracteres");
+    return;
+  }
+  if (!validacaoConfirmarSenha) {
+    alert("Para confirmar, a senha é necessário ser igual à senha");
+    return;
+  }
+
+  let emailRepetido = false;
+  for (let posicao = 0; posicao < listaEmailRepetido.length; posicao++) {
+    let emailRepetidoAtual = listaEmailRepetido[posicao];
+    if (emailVar === emailRepetidoAtual) {
+      emailRepetido = true;
       break;
     }
   }
-  if(emailrepetido){
-    alert(`email ja cadastrado`)
+
+  if (emailRepetido) {
+    alert("Email repetido");
+    return;
   }
-    else{
+
+  let existeCaractereEspecial = false;
+  for (let index = 0; index < caracteresEspecial.length; index++) {
+    let caractereAtual = caracteresEspecial[index];
+    if (senhaVar.indexOf(caractereAtual) >= 0) {
+      existeCaractereEspecial = true;
+      break;
+    }
+  }
+
+  if (!existeCaractereEspecial) {
+    alert("É necessário ter pelo menos um caractere especial");
+    return;
+  }
+
+  let existeCaractereNumerico = false;
+  for (let index = 0; index < caracteresNumericos.length; index++) {
+    let caractereAtual = caracteresNumericos[index];
+    if (senhaVar.indexOf(caractereAtual) >= 0) {
+      existeCaractereNumerico = true;
+      break;
+    }
+  }
+
+  if (!existeCaractereNumerico) {
+    alert("É necessário ter pelo menos um número");
+    return;
+  }
+else{
+
+
       listaEmailRepetido.push(emailVar);
       
       
@@ -185,9 +223,15 @@ function irParaLogin(){
     console.log("resposta: ", resposta);
 
     if (resposta.ok) {
-      setTimeout(() => {
-        window.location = "PaginaLogin.html";
-      }, 2000);
+      // setTimeout(() => {
+      //   window.location = "PaginaLogin.html";
+      // }, 2000);
+
+      
+      login.style.left = "25px"
+      cadastra.style.left = "450px"
+      botaoColor.style.left = "0px"
+      
 
       limparFormulario();
       finalizarAguardar();
@@ -204,7 +248,7 @@ function irParaLogin(){
 }
 }
     
-   
+
 
 
   
@@ -220,9 +264,7 @@ function irParaLogin(){
    var emailVar = ipt_email.value;
    var senhaVar = ipt_senha.value;
    let validacaoEmail = emailVar.indexOf("@") >= 0 && emailVar.indexOf(".com") >= 0;
-    let validacaoSenhaLetra = senhaVar.length > 5 
-    let validacaoSenhaCaracterEspeciais = caracterEspecial.length >= 0 
-    let validacaoSenhaNumero = caracterNum.length >= 0
+  let validacaoSenhaLetra = senhaVar.length > 5 
     
    if (emailVar == "" || senhaVar == "") {
      alert("erro ")
@@ -230,12 +272,8 @@ function irParaLogin(){
     alert("É necessario ter '@' e '.com'");
    } if(!validacaoSenhaLetra){
     alert("É necessario ter mais 5 caracteres");
-   } if(!validacaoSenhaCaracterEspeciais){
-    alert("É necessario ter caracteres ");
-   } if(!validacaoSenhaNumero){
-    alert("É necessario ter caracteres numericos");
-   }
-       
+   } 
+  
        
    }else {
     console.log("FORM LOGIN: ", emailVar);
